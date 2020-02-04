@@ -1,0 +1,53 @@
+name: Python package
+
+on:
+  push:
+    branches:
+      - master
+      - staging
+      - develop
+  pull_request:
+    types: [assigned, opened, synchronize, reopened]
+    branches:
+      - master
+      - staging
+      - develop
+
+jobs:
+  code-convention:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version: [7.2]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up PHP ${{ matrix.php-version }}
+      uses: shivammathur/setup-php@v1
+      with:
+        php-version: ${{ matrix.php-version }}
+        tools: php-cs-fixer, phpunit
+    - name: Testing with php-cs-fixer
+      run: |
+        # go to php folder
+        cd php
+        # run php-cs-fixer
+        php-cs-fixer fix --dry-run
+  
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run build
+        run: |
+          echo "Build Package!"
+
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/staging'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run deploy
+        run: |
+          echo "Deploy Package!"

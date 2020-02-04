@@ -1,0 +1,56 @@
+name: Python package
+
+on:
+  push:
+    branches:
+      - master
+      - staging
+      - develop
+  pull_request:
+    types: [assigned, opened, synchronize, reopened]
+    branches:
+      - master
+      - staging
+      - develop
+
+jobs:
+  code-convention:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.6, 3.7]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Setup Flake8
+      run: |
+        cd python
+        pip install flake8
+    - name: Lint with flake8
+      run: |
+        # stop the build if there are Python syntax errors or undefined names
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run build
+        run: |
+          echo "Build Package!"
+
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/staging'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run deploy
+        run: |
+          echo "Deploy Package!"
