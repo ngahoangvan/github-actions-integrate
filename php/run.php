@@ -1,4 +1,5 @@
 <!-- Test Github Action -->
+<?php
 
 $txt1 = "Learn PHP";
 $x = 5;
