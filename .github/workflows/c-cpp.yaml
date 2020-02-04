@@ -25,7 +25,7 @@ jobs:
         name: ngahv/github-actions-cpp
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        registry: ${{ secrets.DOCKER_SERVER }}
+        # registry: ${{ secrets.DOCKER_SERVER }}
         dockerfile: c-cpp/Dockerfile
         tag_names: true
   
