@@ -1,6 +1,6 @@
 <?php
 
-$finder = PhpCsFixer\Finder::create()
+$finder = PhpCsFixer\Finder::create();
 
 $fixers = [
     '-psr0',
