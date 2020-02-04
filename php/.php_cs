@@ -1,6 +1,11 @@
 <?php
 
-$finder = PhpCsFixer\Finder::create();
+$finder = PhpCsFixer\Finder::create()
+    ->in(__DIR__)
+    ->name('*.php')
+    ->notName('*.blade.php')
+    ->ignoreDotFiles(true)
+    ->ignoreVCS(true);
 
 $fixers = [
     '-psr0',
