@@ -1,3 +1,3 @@
 FROM alpine:3.7
 WORKDIR /app
-COPY run.cpp /app/
+COPY c-cpp/run.cpp /app/
