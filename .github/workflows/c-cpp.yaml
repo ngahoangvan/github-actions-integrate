@@ -1,0 +1,39 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches:
+      - master
+      - staging
+      - develop
+  pull_request:
+    types: [assigned, opened, synchronize, reopened]
+    branches:
+      - master
+      - staging
+      - develop
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: ngahv/github-actions-cpp
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        registry: ${{ secrets.DOCKER_PASSWORD }}
+        dockerfile: c-cpp/Dockerfile
+        tag_names: true
+  
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/staging'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run deploy
+        run: |
+          echo "Deploy Package!"
