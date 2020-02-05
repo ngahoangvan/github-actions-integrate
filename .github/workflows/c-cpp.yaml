@@ -20,7 +20,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    if: contains('refs/tags/*')
+    if: github.ref == 'refs/tags/*'
     steps:
     - uses: actions/checkout@master
     - name: Publish to Registry
@@ -31,7 +31,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         # registry: ${{ secrets.DOCKER_SERVER }}
         dockerfile: c-cpp/Dockerfile
-        tagging: true
+        tags: ${GITHUB_REF/refs\/tags\//}
   
   deploy:
     runs-on: ubuntu-latest
