@@ -30,7 +30,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         # registry: ${{ secrets.DOCKER_SERVER }}
         dockerfile: c-cpp/Dockerfile
-        tags: ${GITHUB_REF/refs\/tags\//}
+        tags: 'latest'
   
   deploy:
     runs-on: ubuntu-latest
