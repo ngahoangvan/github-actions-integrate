@@ -6,17 +6,21 @@ on:
       - master
       - staging
       - develop
+    tags:
+      - '*'
   pull_request:
     types: [assigned, opened, synchronize, reopened]
     branches:
       - master
       - staging
       - develop
+  
 
 jobs:
 
   build:
     runs-on: ubuntu-latest
+    if: contains('refs/tags/*')
     steps:
     - uses: actions/checkout@master
     - name: Publish to Registry
@@ -27,7 +31,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         # registry: ${{ secrets.DOCKER_SERVER }}
         dockerfile: c-cpp/Dockerfile
-        tag_names: true
+        tagging: true
   
   deploy:
     runs-on: ubuntu-latest
