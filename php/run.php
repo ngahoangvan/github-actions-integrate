@@ -1,7 +1,7 @@
 <!-- Test Github Action -->
 <?php
 
-/**
+/** Test
  * @document
  * Description of what this module (or file) is doing.
  * Learn PHP

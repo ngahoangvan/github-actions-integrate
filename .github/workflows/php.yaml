@@ -33,9 +33,11 @@ jobs:
         php-cs-fixer fix --dry-run
     - name: Testing with phpcs
       run: |
+        ls
         phpcs .
     - name: Testing with phpcbf
       run: |
+        ls
         phpcbf .
   
   build:
