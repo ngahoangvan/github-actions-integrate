@@ -3,11 +3,9 @@ name: PHP package
 on:
   push:
     branches:
-      - master
-      - staging
-      - develop
+      - '*'
   pull_request:
-    types: [assigned, opened, synchronize, reopened]
+    types: [opened, reopened]
     branches:
       - master
       - staging
@@ -26,16 +24,19 @@ jobs:
       uses: shivammathur/setup-php@v1
       with:
         php-version: ${{ matrix.php-version }}
-        tools: php-cs-fixer, phpunit
+        tools: php-cs-fixer, phpunit, phpcs, phpcbf
     - name: Testing with php-cs-fixer
       run: |
         # go to php folder
         cd php
         # run php-cs-fixer
         php-cs-fixer fix --dry-run
+        phpcs .
+        phpcbf .
   
   build:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/develop'
     needs: code-convention
     steps:
       - uses: actions/checkout@v2
