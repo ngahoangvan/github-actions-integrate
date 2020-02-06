@@ -39,6 +39,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    needs: code-convention
     steps:
       - uses: actions/checkout@v2
       - name: Run build
@@ -47,6 +48,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
+    needs: [code-convention, build]
     if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/staging'
     steps:
       - uses: actions/checkout@v2
