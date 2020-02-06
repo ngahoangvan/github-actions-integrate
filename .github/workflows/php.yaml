@@ -31,14 +31,6 @@ jobs:
         cd php
         # run php-cs-fixer
         php-cs-fixer fix --dry-run
-    # - name: Testing with phpcs
-    #   run: |
-    #     ls
-    #     phpcs .
-    # - name: Testing with phpcbf
-    #   run: |
-    #     ls
-    #     phpcbf .
   
   build:
     runs-on: ubuntu-latest
