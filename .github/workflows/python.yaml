@@ -26,9 +26,10 @@ jobs:
     steps:
       - name: Deploy api to DigitalOcean Droplet
         run: |
-          apt update && apt install openssh-server -y 
+          whoami
+          sudo apt update && sudo apt install openssh-server -y 
           mkdir -p ~/.ssh/
           echo ${{secrets.DROPLET_PUB_KEY}} > ~/.ssh/id_rsa
-          chmod 600 /root/.ssh/id_rsa
+          sudo chmod 600 /root/.ssh/id_rsa
           ssh root@${{secrets.DROPLET_PUB_IP}}
           ls -la
