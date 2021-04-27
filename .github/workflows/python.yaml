@@ -26,8 +26,6 @@ jobs:
     steps:
       - name: Deploy api to DigitalOcean Droplet
         run: |
-          # ${{env.setup-ssh-server}}
-          # ${{env.set-ssh-key}}
           sudo apt update && sudo apt install openssh-server sudo -y 
           mkdir -p ~/.ssh/
           ls -la ~/.ssh/
