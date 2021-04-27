@@ -26,7 +26,7 @@ jobs:
     steps:
       - name: Deploy api to DigitalOcean Droplet
         run: |
-          ${{setup-ssh-server}}
-          ${{set-ssh-key}}
+          ${{env.setup-ssh-server}}
+          ${{env.set-ssh-key}}
           ssh root@${{secrets.DROPLET_PUB_IP}}
           ls -la
