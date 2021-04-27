@@ -29,10 +29,8 @@ jobs:
           # ${{env.setup-ssh-server}}
           # ${{env.set-ssh-key}}
           sudo apt update && sudo apt install openssh-server sudo -y 
-          echo 'Done apt update'
           mkdir -p ~/.ssh/
           echo ${{secrets.DROPLET_PRIVATE_KEY}} > ~/.ssh/id_rsa
-          echo 'Done copy ssh'
           sudo chmod 600 ~/.ssh/id_rsa
           ssh root@${{secrets.DROPLET_PUB_IP}}
           ls -la
