@@ -3,13 +3,13 @@ name: PHP package
 on:
   push:
     branches:
-      - '*'
-  pull_request:
-    types: [opened, reopened]
-    branches:
-      - master
-      - staging
-      - develop
+      - 'main'
+  # pull_request:
+  #   types: [opened, reopened]
+  #   branches:
+  #     - master
+  #     - staging
+  #     - develop
 
 jobs:
   code-convention:

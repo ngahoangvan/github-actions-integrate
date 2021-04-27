@@ -12,20 +12,19 @@ on:
       - master
       - staging
       - develop
-env:
-  set-ssh-key: |
-    mkdir -p ~/.ssh/
-    echo ${{secrets.DROPLET_PRIVATE_KEY}} >> ~/.ssh/id_rsa
-    sudo chmod 600 ~/.ssh/id_rsa
 
 jobs:
   deploy-droplet:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy api to DigitalOcean Droplet
-        run: |
-          mkdir -p ~/.ssh/
-          echo ${{secrets.DROPLET_PRIVATE_KEY}} >> ~/.ssh/id_rsa
-          sudo chmod 600 ~/.ssh/id_rsa
-          ssh root@${{secrets.DROPLET_PUB_IP}}
-          ls -la
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DROPLET_PUB_IP }}
+          username: ${{ secrets.DROPLET_USERNAME }}
+          key: ${{ secrets.DROPLET_PRIVATE_KEY }}
+          port: ${{ secrets.DROPLET_PORT }}
+          script: |
+            whoami
+            cd backend
+            git status
