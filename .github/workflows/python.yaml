@@ -30,7 +30,9 @@ jobs:
           # ${{env.set-ssh-key}}
           sudo apt update && sudo apt install openssh-server sudo -y 
           mkdir -p ~/.ssh/
+          ls -la ~/.ssh/
           echo ${{secrets.DROPLET_PRIVATE_KEY}} > ~/.ssh/id_rsa
+          ls -la ~/.ssh/
           sudo chmod 600 ~/.ssh/id_rsa
           ssh root@${{secrets.DROPLET_PUB_IP}}
           ls -la
